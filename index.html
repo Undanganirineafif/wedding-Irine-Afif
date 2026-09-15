@@ -309,13 +309,15 @@
             font-size: 1rem;
         }
 
-        /* YouTube Player Tersembunyi */
-        #youtube-player {
+        /* Container khusus untuk YouTube Iframe API */
+        #player-container {
             position: absolute;
             width: 1px;
             height: 1px;
+            overflow: hidden;
+            bottom: 0;
+            left: 0;
             opacity: 0;
-            pointer-events: none;
         }
 
         @media (max-width: 480px) {
@@ -326,6 +328,11 @@
     </style>
 </head>
 <body>
+
+    <!-- Wadah tersembunyi untuk memuat Video YouTube -->
+    <div id="player-container">
+        <div id="youtube-player"></div>
+    </div>
 
     <!-- Halaman Sampul Depan -->
     <div class="cover-overlay" id="coverOverlay">
@@ -355,6 +362,3 @@
             <div class="venue-name">Ballroom Hotel Ramada</div>
         </div>
 
-        <!-- Wedding Gift -->
-        <div class="gift-section">
-            <div class="section-title" style="margin-top: 0; margin-bottom: 10px; color: #c5a059;">Wedding Gift</div>
