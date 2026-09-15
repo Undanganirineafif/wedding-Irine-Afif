@@ -3,363 +3,1174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>The Wedding of Irine & Afif</title>
+
     <!-- Google Fonts -->
-    <link href="https://googleapis.com" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@300;400;500&display=swap"
+        rel="stylesheet"
+    >
+
     <style>
-        /* Reset & Base Styles */
+
+        /* ==============================
+           RESET
+        ============================== */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
+
+        /* ==============================
+           BODY
+        ============================== */
+
         body {
             background-color: #fdfcfb;
             color: #333333;
             font-family: 'Montserrat', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
             min-height: 100vh;
+
             padding: 20px;
+
             overflow-x: hidden;
+            overflow-y: auto;
         }
 
-        /* Halaman Sampul Depan (Overlay) */
+
+        /* ==============================
+           COVER / SAMPUL
+        ============================== */
+
         .cover-overlay {
             position: fixed;
+
             top: 0;
             left: 0;
+
             width: 100%;
-            height: 100%;
+            height: 100vh;
+
             background-color: #fdfcfb;
+
             display: flex;
             flex-direction: column;
+
             justify-content: center;
             align-items: center;
+
             z-index: 10000;
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+
             padding: 20px;
+
             text-align: center;
+
+            transition:
+                transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+
+            transform: translateY(0);
         }
+
+
+        /* Cover bergerak ke atas */
         .cover-overlay.hide {
             transform: translateY(-100%);
             pointer-events: none;
         }
 
-        /* Container Undangan Utama */
+
+        /* ==============================
+           UNDANGAN UTAMA
+        ============================== */
+
         .invitation-card {
             background-color: #ffffff;
+
             max-width: 450px;
+
             width: 100%;
+
+            margin: 30px auto;
+
             padding: 60px 35px;
+
             text-align: center;
+
             position: relative;
+
             border: 1px solid #f2eee9;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.015);
-            display: none; /* Muncul setelah cover dibuka */
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.015);
+
+            /* Awalnya disembunyikan */
+            display: none;
         }
 
-        /* Garis Aksen Emas Minimalis */
+
+        /* ==============================
+           GARIS EMAS
+        ============================== */
+
         .border-line {
             position: absolute;
+
             top: 20px;
             bottom: 20px;
+
             left: 20px;
             right: 20px;
+
             border: 1px solid #c5a059;
+
             opacity: 0.25;
+
             pointer-events: none;
         }
 
-        /* Monogram */
+
+        /* ==============================
+           MONOGRAM
+        ============================== */
+
         .monogram {
             font-family: 'Cormorant Garamond', serif;
+
             font-size: 2.2rem;
+
             color: #c5a059;
+
             letter-spacing: 4px;
+
             margin-bottom: 25px;
+
             font-weight: 300;
         }
+
+
+        /* ==============================
+           TAGLINE
+        ============================== */
 
         .tagline {
             font-size: 0.75rem;
+
             text-transform: uppercase;
+
             letter-spacing: 5px;
+
             color: #888888;
+
             margin-bottom: 15px;
         }
 
-        /* Nama Mempelai */
+
+        /* ==============================
+           NAMA MEMPELAI
+        ============================== */
+
         .names {
             font-family: 'Cormorant Garamond', serif;
+
             font-size: 3rem;
+
             font-weight: 400;
+
             color: #1a1a1a;
+
             margin-bottom: 30px;
+
             line-height: 1.2;
         }
 
+
+        /* ==============================
+           DIVIDER
+        ============================== */
+
         .divider {
             width: 40px;
+
             height: 1px;
+
             background-color: #c5a059;
-            margin: 0 auto 30px auto;
+
+            margin:
+                0 auto 30px auto;
+
             opacity: 0.5;
         }
 
-        /* Detail Waktu & Tempat */
+
+        /* ==============================
+           JUDUL SECTION
+        ============================== */
+
         .section-title {
             font-size: 0.8rem;
+
             text-transform: uppercase;
+
             letter-spacing: 3px;
+
             color: #555555;
+
             margin-top: 25px;
+
             margin-bottom: 5px;
+
             font-weight: 500;
         }
+
+
+        /* ==============================
+           TANGGAL
+        ============================== */
 
         .date {
             font-family: 'Cormorant Garamond', serif;
+
             font-size: 1.6rem;
+
             color: #1a1a1a;
+
             margin-bottom: 5px;
         }
 
-        .time, .venue {
+
+        /* ==============================
+           WAKTU & TEMPAT
+        ============================== */
+
+        .time,
+        .venue {
             font-size: 0.85rem;
+
             color: #666666;
+
             line-height: 1.6;
+
             font-weight: 300;
         }
 
+
         .venue-name {
             font-size: 0.95rem;
+
             font-weight: 400;
+
             color: #1a1a1a;
+
             margin-top: 5px;
         }
 
-        /* Bagian Kado Digital / Rekening */
+
+        /* ==============================
+           KADO DIGITAL
+        ============================== */
+
         .gift-section {
             margin-top: 40px;
+
             padding: 20px;
+
             background-color: #faf8f5;
+
             border: 1px dashed #e6e0d5;
         }
 
+
         .bank-info {
             font-size: 0.85rem;
+
             color: #555555;
+
             margin-bottom: 12px;
+
             line-height: 1.5;
         }
 
+
         .account-number {
             font-family: 'Cormorant Garamond', serif;
+
             font-size: 1.4rem;
+
             font-weight: 500;
+
             color: #1a1a1a;
+
             letter-spacing: 1px;
         }
 
-        /* Form RSVP */
+
+        /* ==============================
+           RSVP
+        ============================== */
+
         .rsvp-section {
             margin-top: 40px;
+
             text-align: left;
+
             border-top: 1px solid #f2eee9;
+
             padding-top: 30px;
         }
 
+
         .rsvp-section .section-title {
             text-align: center;
+
             margin-top: 0;
+
             margin-bottom: 20px;
         }
+
 
         .form-group {
             margin-bottom: 15px;
         }
 
+
         .form-group label {
             display: block;
+
             font-size: 0.75rem;
+
             text-transform: uppercase;
+
             letter-spacing: 1px;
+
             color: #555555;
+
             margin-bottom: 5px;
+
             font-weight: 500;
         }
 
+
         .form-control {
             width: 100%;
+
             padding: 10px 12px;
+
             font-family: 'Montserrat', sans-serif;
+
             font-size: 0.85rem;
+
             border: 1px solid #cccccc;
+
             background-color: #ffffff;
+
             color: #333333;
+
             outline: none;
-            transition: border-color 0.3s;
+
+            transition:
+                border-color 0.3s;
         }
+
 
         .form-control:focus {
             border-color: #1a1a1a;
         }
 
-        /* Tombol - Tombol */
+
+        /* ==============================
+           BUTTON
+        ============================== */
+
         .btn-group {
             display: flex;
+
             flex-direction: column;
+
             gap: 10px;
+
             margin-top: 30px;
         }
 
+
         .btn {
             display: block;
+
             width: 100%;
+
             padding: 14px 20px;
+
             text-decoration: none;
+
             font-size: 0.75rem;
+
             letter-spacing: 2px;
+
             text-transform: uppercase;
-            transition: all 0.3s ease;
+
+            transition:
+                all 0.3s ease;
+
             cursor: pointer;
+
             border: 1px solid #1a1a1a;
+
             text-align: center;
+
             font-family: 'Montserrat', sans-serif;
         }
 
+
         .btn-primary {
             background-color: #1a1a1a;
+
             color: #ffffff;
         }
+
 
         .btn-primary:hover {
             background-color: transparent;
+
             color: #1a1a1a;
         }
+
 
         .btn-secondary {
             background-color: transparent;
+
             color: #555555;
+
             border: 1px solid #cccccc;
         }
 
+
         .btn-secondary:hover {
             border-color: #1a1a1a;
+
             color: #1a1a1a;
         }
 
+
         .btn-sm {
             width: auto;
+
             padding: 8px 15px;
+
             font-size: 0.7rem;
+
             display: inline-block;
+
             margin-top: 5px;
+
             border-color: #c5a059;
+
             color: #c5a059;
+
             background: transparent;
         }
 
+
         .btn-sm:hover {
             background-color: #c5a059;
+
             color: #ffffff;
         }
 
-        /* Notifikasi Toast */
+
+        /* ==============================
+           TOAST
+        ============================== */
+
         .toast {
             position: fixed;
+
             bottom: 30px;
+
             left: 50%;
-            transform: translateX(-50%) translateY(100px);
+
+            transform:
+                translateX(-50%)
+                translateY(100px);
+
             background-color: #333333;
+
             color: #ffffff;
+
             padding: 10px 20px;
+
             font-size: 0.8rem;
+
             letter-spacing: 1px;
+
             border-radius: 4px;
+
             opacity: 0;
-            transition: all 0.4s ease;
+
+            transition:
+                all 0.4s ease;
+
             z-index: 9999;
         }
 
+
         .toast.show {
-            transform: translateX(-50%) translateY(0);
+            transform:
+                translateX(-50%)
+                translateY(0);
+
             opacity: 1;
         }
 
-        /* Elemen Kontrol Audio Mengambang */
+
+        /* ==============================
+           AUDIO CONTROL
+        ============================== */
+
         .audio-control {
             position: fixed;
+
             bottom: 20px;
+
             right: 20px;
+
             background-color: #ffffff;
+
             border: 1px solid #c5a059;
+
             width: 40px;
+
             height: 40px;
+
             border-radius: 50%;
+
             display: none;
+
             justify-content: center;
+
             align-items: center;
+
             cursor: pointer;
+
             z-index: 999;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+
+            box-shadow:
+                0 4px 10px rgba(0,0,0,0.05);
+
             font-size: 1rem;
         }
 
-        /* Container khusus YouTube API */
+
+        /* ==============================
+           YOUTUBE PLAYER
+        ============================== */
+
         #player-container {
             position: absolute;
+
             width: 1px;
+
             height: 1px;
+
             overflow: hidden;
+
             bottom: 0;
+
             left: 0;
+
             opacity: 0;
         }
 
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
         @media (max-width: 480px) {
-            body { padding: 10px; }
-            .invitation-card { padding: 45px 20px; }
-            .names { font-size: 2.5rem; }
+
+            body {
+                padding: 10px;
+            }
+
+            .invitation-card {
+                padding: 45px 20px;
+            }
+
+            .names {
+                font-size: 2.5rem;
+            }
+
         }
+
     </style>
 </head>
+
+
 <body>
 
-    <!-- Wadah Audio Youtube Iframe -->
+
+    <!-- =====================================
+         YOUTUBE PLAYER
+    ====================================== -->
+
     <div id="player-container">
         <div id="youtube-player"></div>
     </div>
 
-    <!-- Halaman Sampul Depan -->
-    <div class="cover-overlay" id="coverOverlay">
-        <div class="monogram">I & A</div>
-        <div class="tagline" style="margin-bottom: 5px;">Pernikahan Dari</div>
-        <div class="names" style="font-size: 2.5rem; margin-bottom: 40px;">Irine & Afif</div>
-        <button class="btn btn-primary" style="max-width: 200px;" onclick="openInvitation()">Buka Undangan</button>
+
+    <!-- =====================================
+         COVER / SAMPUL DEPAN
+    ====================================== -->
+
+    <div
+        class="cover-overlay"
+        id="coverOverlay"
+    >
+
+        <div class="monogram">
+            I & A
+        </div>
+
+
+        <div
+            class="tagline"
+            style="margin-bottom: 5px;"
+        >
+            Pernikahan Dari
+        </div>
+
+
+        <div
+            class="names"
+            style="
+                font-size: 2.5rem;
+                margin-bottom: 40px;
+            "
+        >
+            Irine & Afif
+        </div>
+
+
+        <!-- TOMBOL BUKA UNDANGAN -->
+
+        <button
+            class="btn btn-primary"
+            id="openInvitationBtn"
+            style="max-width: 200px;"
+        >
+            Buka Undangan
+        </button>
+
     </div>
 
-    <!-- Konten Undangan Utama -->
-    <div class="invitation-card" id="mainInvitation">
+
+
+    <!-- =====================================
+         ISI UNDANGAN
+    ====================================== -->
+
+    <div
+        class="invitation-card"
+        id="mainInvitation"
+    >
+
         <div class="border-line"></div>
-        <div class="monogram">I & A</div>
-        <div class="tagline">The Wedding of</div>
-        <div class="names">Irine & Afif</div>
+
+
+        <!-- MONOGRAM -->
+
+        <div class="monogram">
+            I & A
+        </div>
+
+
+        <!-- JUDUL -->
+
+        <div class="tagline">
+            The Wedding of
+        </div>
+
+
+        <!-- NAMA -->
+
+        <div class="names">
+            Irine & Afif
+        </div>
+
+
         <div class="divider"></div>
 
-        <div class="section-title">Waktu</div>
-        <div class="date">Sabtu, 28 November 2026</div>
+
+
+        <!-- =================================
+             WAKTU
+        ================================== -->
+
+        <div class="section-title">
+            Waktu
+        </div>
+
+
+        <div class="date">
+            Sabtu, 28 November 2026
+        </div>
+
+
         <div class="time">
-            Akad Nikah: 08.00 WIB <br>
+
+            Akad Nikah: 08.00 WIB
+            <br>
+
             Resepsi Pernikahan: 10.00 WIB
+
         </div>
 
-        <div class="section-title">Tempat</div>
+
+
+        <!-- =================================
+             TEMPAT
+        ================================== -->
+
+        <div class="section-title">
+            Tempat
+        </div>
+
+
         <div class="venue">
-            <div class="venue-name">Ballroom Hotel Ramada</div>
+
+            <div class="venue-name">
+                Ballroom Hotel Ramada
+            </div>
+
         </div>
 
-        <!-- Bagian Kado Digital -->
+
+
+        <!-- =================================
+             KADO DIGITAL
+        ================================== -->
+
+        <div class="gift-section">
+
+            <div class="section-title">
+                Kado Digital
+            </div>
+
+
+            <div class="bank-info">
+
+                Doa dan kehadiran Anda
+                merupakan hadiah terindah
+                bagi kami.
+
+            </div>
+
+
+            <div class="account-number">
+                BCA 1234567890
+            </div>
+
+
+            <div class="bank-info">
+                a.n. Irine
+            </div>
+
+
+            <button
+                class="btn btn-sm"
+                onclick="copyRekening()"
+            >
+                Salin Rekening
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================
+             RSVP
+        ================================== -->
+
+        <div class="rsvp-section">
+
+            <div class="section-title">
+                Konfirmasi Kehadiran
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="guestName">
+                    Nama
+                </label>
+
+                <input
+                    type="text"
+                    id="guestName"
+                    class="form-control"
+                    placeholder="Nama Anda"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="attendance">
+                    Kehadiran
+                </label>
+
+                <select
+                    id="attendance"
+                    class="form-control"
+                >
+
+                    <option value="">
+                        Pilih Kehadiran
+                    </option>
+
+                    <option value="Hadir">
+                        Saya akan hadir
+                    </option>
+
+                    <option value="Tidak Hadir">
+                        Saya tidak dapat hadir
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="btn-group">
+
+                <button
+                    class="btn btn-primary"
+                    onclick="sendRSVP()"
+                >
+                    Kirim Konfirmasi
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         TOAST NOTIFICATION
+    ====================================== -->
+
+    <div
+        class="toast"
+        id="toast"
+    >
+        Berhasil!
+    </div>
+
+
+
+    <!-- =====================================
+         AUDIO CONTROL
+    ====================================== -->
+
+    <div
+        class="audio-control"
+        id="audioControl"
+        onclick="toggleAudio()"
+    >
+        ♪
+    </div>
+
+
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
+    <script>
+
+        /* ==================================
+           BUKA UNDANGAN
+        ================================== */
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            function () {
+
+                const openButton =
+                    document.getElementById(
+                        'openInvitationBtn'
+                    );
+
+                const cover =
+                    document.getElementById(
+                        'coverOverlay'
+                    );
+
+                const invitation =
+                    document.getElementById(
+                        'mainInvitation'
+                    );
+
+                const audioControl =
+                    document.getElementById(
+                        'audioControl'
+                    );
+
+
+                openButton.addEventListener(
+                    'click',
+                    function () {
+
+                        /*
+                         * Tampilkan isi undangan
+                         */
+
+                        invitation.style.display =
+                            'block';
+
+
+                        /*
+                         * Jalankan animasi
+                         * cover ke atas
+                         */
+
+                        setTimeout(
+                            function () {
+
+                                cover.classList.add(
+                                    'hide'
+                                );
+
+                            },
+                            50
+                        );
+
+
+                        /*
+                         * Tampilkan tombol audio
+                         */
+
+                        if (audioControl) {
+
+                            audioControl.style.display =
+                                'flex';
+
+                        }
+
+
+                        /*
+                         * Aktifkan scroll
+                         */
+
+                        document.body.style.overflowY =
+                            'auto';
+
+
+                        /*
+                         * Scroll ke bagian
+                         * undangan
+                         */
+
+                        setTimeout(
+                            function () {
+
+                                window.scrollTo({
+                                    top: 0,
+                                    behavior: 'smooth'
+                                });
+
+                            },
+                            300
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* ==================================
+           COPY REKENING
+        ================================== */
+
+        function copyRekening() {
+
+            const nomor =
+                '1234567890';
+
+
+            navigator.clipboard
+                .writeText(nomor)
+                .then(
+                    function () {
+
+                        showToast(
+                            'Nomor rekening berhasil disalin'
+                        );
+
+                    }
+                )
+                .catch(
+                    function () {
+
+                        showToast(
+                            'Gagal menyalin rekening'
+                        );
+
+                    }
+                );
+
+        }
+
+
+
+        /* ==================================
+           TOAST
+        ================================== */
+
+        function showToast(message) {
+
+            const toast =
+                document.getElementById(
+                    'toast'
+                );
+
+
+            toast.textContent =
+                message;
+
+
+            toast.classList.add(
+                'show'
+            );
+
+
+            setTimeout(
+                function () {
+
+                    toast.classList.remove(
+                        'show'
+                    );
+
+                },
+                2500
+            );
+
+        }
+
+
+
+        /* ==================================
+           RSVP WHATSAPP
+        ================================== */
+
+        function sendRSVP() {
+
+            const name =
+                document.getElementById(
+                    'guestName'
+                ).value.trim();
+
+
+            const attendance =
+                document.getElementById(
+                    'attendance'
+                ).value;
+
+
+            if (!name) {
+
+                showToast(
+                    'Silakan isi nama terlebih dahulu'
+                );
+
+                return;
+
+            }
+
+
+            if (!attendance) {
+
+                showToast(
+                    'Silakan pilih kehadiran'
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * GANTI NOMOR INI DENGAN
+             * NOMOR WHATSAPP KAMU
+             *
+             * Format:
+             * 628xxxxxxxxxx
+             */
+
+            const nomorWhatsApp =
+                '6281234567890';
+
+
+            const pesan =
+                'Halo, saya ' +
+                name +
+                '. Saya ingin mengonfirmasi bahwa saya ' +
+                attendance.toLowerCase() +
+                ' di pernikahan Irine & Afif.';
+
+
+            const url =
+                'https://wa.me/' +
+                nomorWhatsApp +
+                '?text=' +
+                encodeURIComponent(pesan);
+
+
+            window.open(
+                url,
+                '_blank'
+            );
+
+        }
+
+
+
+        /* ==================================
+           AUDIO
+        ================================== */
+
+        let audioPlaying = false;
+
+
+        function toggleAudio() {
+
+            /*
+             * Fungsi ini sengaja dibuat
+             * aman walaupun kamu belum
+             * memasukkan musik.
+             */
+
+            showToast(
+                'Silakan tambahkan musik terlebih dahulu'
+            );
+
+        }
+
+    </script>
+
+
+</body>
+</html>
